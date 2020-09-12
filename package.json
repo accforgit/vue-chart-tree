@@ -1,17 +1,33 @@
 {
   "name": "vue-chart-tree",
-  "version": "0.1.0",
-  "private": true,
+  "version": "0.1.1",
+  "main": "lib/vue-chart-tree.umd.js",
+  "description": "一个特殊布局模式结构的`vue Tree`组件",
+  "keyword": ["vue-chart", "vue-tree", "org-tree", "chart", "tree", "org"],
+  "license": "MIT",
+  "author": {
+    "name": "kother1",
+    "email": "kother@foxmail.com",
+    "url": "https://github.com/accforgit"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/accforgit/vue-chart-tree.git"
+  },
+  "bugs": {
+    "url": "https://github.com/accforgit/vue-chart-tree/issues"
+  },
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build"
+    "build": "vue-cli-service build",
+    "lib": "vue-cli-service build --target lib --name vue-chart-tree --dest lib src/index.js"
   },
   "dependencies": {
     "core-js": "^3.6.5",
     "vue": "^2.6.11"
   },
   "devDependencies": {
-    "@vue/cli-plugin-babel": "~4.5.0",
+    "@vue/cli-plugin-babel": "^4.5.6",
     "@vue/cli-service": "~4.5.0",
     "less": "^3.0.4",
     "less-loader": "^5.0.0",
