@@ -77,19 +77,7 @@ function genTestData(maxHeight = 5, maxChildrenLen = 5, height = 0) {
   })
   return rootNode
 }
-function getCount(rootData) {
-  if (rootData.children) {
-    return rootData.children.reduce((t, c) => {
-      return t + getCount(c)
-    }, 1)
-  }
-  return 1
-}
-function getRootData(maxHeight = 6, maxChildrenLen = 6) {
-  const rootData = genTestData(maxHeight, maxChildrenLen)
-  console.log('节点数量: ', getCount(rootData))
-  return rootData
-}
+
 function genTestName() {
   const nameLen = Math.random() * 10 + 10
   let name = ''
@@ -107,10 +95,6 @@ function genTestName() {
   overflow-x: scroll;
   border-radius: 4px;
   background-color: #f5f5f5;
-  .tree_wrapper {
-    // display: inline-block;
-    // white-space: nowrap;
-  }
 }
 .parent_wrapper {
   display: inline-block;
