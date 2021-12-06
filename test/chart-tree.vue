@@ -4,12 +4,13 @@
       <vue-chart-tree
         v-if="rootData"
         ref="rootTreeNodeRef"
+        isRoot
         :key="rootData.id"
         :treeNodeData="rootData"
-        isRoot>
+      >
         <template v-slot:default="slotProps">
           <div class="parent_wrapper">
-            <div class="parent_content" @click="changeNameModal(slotProps.data)">
+            <div class="parent_content" @click="handlerNodeClick(slotProps.data)">
               <p class="content_name">{{slotProps.data.treeNodeData.name}}</p>
             </div>
           </div>
@@ -26,7 +27,7 @@
   </div>
 </template>
 <script>
-import VueChartTree, { updatePartTree } from 'vue-chart-tree'
+import VueChartTree, { updatePartTree } from '../src'
 
 export default {
   components: {
@@ -40,19 +41,21 @@ export default {
       nameModalVisible: false
     }
   },
-  handlerNodeClick(activeData) {
-    this.activeData = activeData
-    this.newName = activeData.treeNodeData.name
-    this.changeNameModal()
-  },
-  changeNameModal() {
-    this.nameModalVisible = !this.nameModalVisible
-  },
-  updateName() {
-    this.activeData.treeNodeData.name = this.newName
-    // 节点高度改变，需要调用 updatePartTree 方法进行位置的重新计算
-    updatePartTree(this.activeData.$treeNodeRefs.treeNodeRef)
-    this.changeNameModal()
+  methods: {
+    handlerNodeClick(activeData) {
+      this.activeData = activeData
+      this.newName = activeData.treeNodeData.name
+      this.changeNameModal()
+    },
+    changeNameModal() {
+      this.nameModalVisible = !this.nameModalVisible
+    },
+    updateName() {
+      this.activeData.treeNodeData.name = this.newName
+      // 节点高度改变，需要调用 updatePartTree 方法进行位置的重新计算
+      updatePartTree(this.activeData.$treeNodeRefs.treeNodeRef)
+      this.changeNameModal()
+    },
   }
 }
 let id = 0
