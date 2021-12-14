@@ -5,6 +5,7 @@
   "description": "一个特殊布局模式结构的`vue Tree`组件",
   "keywords": ["vue-chart", "vue-tree", "org-tree", "chart", "tree", "org"],
   "license": "MIT",
+  "typings": "types/index.d.ts",
   "author": {
     "name": "kother1",
     "email": "kother@foxmail.com",
