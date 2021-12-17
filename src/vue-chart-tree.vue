@@ -16,7 +16,7 @@
   </div>
   <div
     :class="treeChildrenClassName"
-    v-if="childrenLen"
+    v-if="childrenLen && openedChildren"
     v-show="treeNodeData.isOpen"
   >
     <p :class="connectLineClassName" v-if="childrenLen > 1"></p>
@@ -37,7 +37,7 @@ import {
   dataOpened,
   treeParentClassName, treeChildrenClassName, treeNodeClassName, stretchNodeClassName, connectLineClassName
 } from './const'
-import { resetTree, updatePartTree } from './util'
+import { resetTree, updatePartTree, isOpened } from './util'
 
 export default {
   name: 'vue-chart-tree',
@@ -69,7 +69,11 @@ export default {
   computed: {
     childrenLen () {
       return (this.treeNodeData.children || []).length
-    }
+    },
+    // 会被打开或被打开过
+    openedChildren() {
+      return this.treeNodeData.isOpen || (this.$refs.treeNodeRef && isOpened(this.$refs.treeNodeRef))
+    },
   },
   mounted() {
     if (this.isRoot) {
