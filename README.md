@@ -94,6 +94,11 @@ import VueChartTree, { resetTree, updatePartTree } from 'vue-chart-tree'
 组件本身只是构建了一个树状结构，以及基本的交互，树状图上的节点由开发者自行决定，通过一个传入的 `default slot` 实现，所以具备较大的灵活性
 具体用法参见 [demo](https://github.com/accforgit/vue-chart-tree/blob/master/test/chart-tree.vue)
 
+|slot|描述|参数|
+|----|---|----|
+|`default`|默认插槽，自定义树的节点|{ data: { treeNodeData, $treeNodeRefs } }|
+|`fold`|自定义展开和收起按钮|{ data: { treeNodeData, $treeNodeRefs } }|
+
 ## License
 
 MIT

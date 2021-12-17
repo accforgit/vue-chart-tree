@@ -15,6 +15,13 @@
             </div>
           </div>
         </template>
+        <template v-slot:fold="slotProps">
+          <div class="fold">
+            <span class="fold_num"> {{slotProps.data.treeNodeData.children && slotProps.data.treeNodeData.children.length}} </span>
+            <span v-if="slotProps.data.treeNodeData.isOpen" class="fold_indicator"> 收起 </span>
+            <span v-else class="fold_indicator"> 展开 </span>
+          </div>
+        </template>
       </vue-chart-tree>
     </div>
     <div class="name_dialog" v-if="nameModalVisible">
@@ -149,6 +156,33 @@ function genTestName() {
     bottom: 0;
     background-color: rgba(0, 0, 0, 0.65);
     z-index: 100
+  }
+}
+.fold {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 12px;
+  color: #666;
+  height: 22px;
+  min-width: 22px;
+  border: 2px solid #CCC;
+  border-radius: 12px;
+  background-color: white;
+  &_indicator {
+    display: none;
+  }
+  &:hover {
+    .fold_num {
+      display: none;
+    }
+    .fold_indicator {
+      display: inline-block;
+    }
   }
 }
 </style>

@@ -12,7 +12,10 @@
   <!-- 控制展开/收缩的节点 -->
   <div :class="stretchNodeClassName" v-if="childrenLen">
     <p class="line_l"></p>
-    <p :class="['line_dot', treeNodeData.isOpen ? 'cut_dot' : 'add_dot']" @click="changeOpen"></p>
+    <p v-if="!$scopedSlots.fold" :class="['line_dot', treeNodeData.isOpen ? 'cut_dot' : 'add_dot']" @click="changeOpen"></p>
+    <p v-else class="custom_line_dot" @click="changeOpen">
+      <slot name="fold" v-bind:data="{ treeNodeData, $treeNodeRefs: $refs }"></slot>
+    </p>
   </div>
   <div
     :class="treeChildrenClassName"
@@ -25,6 +28,9 @@
       :key="item.id"
       :treeNodeData="item"
       :isRoot="false">
+      <template v-if="$scopedSlots.fold" v-slot:fold="slotProps">
+        <slot name="fold" v-bind:data="slotProps.data"></slot>
+      </template>
       <template v-slot:default="slotProps">
         <slot v-bind:data="slotProps.data"></slot>
       </template>
@@ -77,7 +83,6 @@ export default {
   },
   mounted() {
     if (this.isRoot) {
-      console.log(this.$refs.treeNodeRef)
       resetTree(this.$refs.treeNodeRef)
     }
   },
@@ -144,6 +149,12 @@ export default {
       &.cut_dot {
         background-image: ~"url('./assets/cut-round.png')";
       }
+    }
+    .custom_line_dot {
+      position: relative;
+      width: @stretchNodeH;
+      height: @stretchNodeH;
+      cursor: pointer;
     }
   }
   .line_l, .line_r {
