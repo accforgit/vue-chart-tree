@@ -77,7 +77,6 @@ export default {
   },
   mounted() {
     if (this.isRoot) {
-      console.log(this.$refs.treeNodeRef)
       resetTree(this.$refs.treeNodeRef)
     }
   },
