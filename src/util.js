@@ -320,7 +320,7 @@ function isRootTreeNode (treeNode) {
   return treeNode.parentElement.className.indexOf(treeChildrenClassName) === -1
 }
 
-function isOpened (treeNode) {
+export function isOpened (treeNode) {
   return treeNode.getAttribute('data-' + dataOpened.key) === dataOpened.opened
 }
 function setDataOpened (treeNode) {
