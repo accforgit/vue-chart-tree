@@ -94,6 +94,12 @@ import VueChartTree, { resetTree, updatePartTree } from 'vue-chart-tree'
 组件本身只是构建了一个树状结构，以及基本的交互，树状图上的节点由开发者自行决定，通过一个传入的 `default slot` 实现，所以具备较大的灵活性
 具体用法参见 [demo](https://github.com/accforgit/vue-chart-tree/blob/master/test/chart-tree.vue)
 
+### Events
+
+|事件名|描述|参数|
+|----|---|----|
+|`trigger`|监听子节点打开或关闭的事件|被打开的父节点的节点数据|
+
 ## License
 
 MIT
