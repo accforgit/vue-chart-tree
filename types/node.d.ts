@@ -3,9 +3,6 @@
  * 因为源码中没有 export SlotProps BasicNodeData，
  * 需要 import { SlotProps, BasicNodeData } from 'vue-chart-tree/types/node' 方式引入。
  */
-
-import Vue from 'vue'
-
 export interface BasicNodeData {
   id: number
   isOpen: boolean
@@ -15,7 +12,7 @@ export interface BasicNodeData {
 interface SlotPropsData<D> {
   treeNodeData: D
   $treeNodeRefs: {
-    treeNodeRef: Vue,
+    treeNodeRef: HTMLElement,
   }
 }
 
