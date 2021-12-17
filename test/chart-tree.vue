@@ -1,5 +1,8 @@
 <template>
   <div class="area_wrapper">
+    <div class="actions_wrapper">
+      <input v-model="cascadeClose" type="checkbox" name="" id="" /> 是否级联关闭
+    </div>
     <div class="tree_wrapper">
       <vue-chart-tree
         v-if="rootData"
@@ -7,6 +10,7 @@
         isRoot
         :key="rootData.id"
         :treeNodeData="rootData"
+        @trigger="trigger"
       >
         <template v-slot:default="slotProps">
           <div class="parent_wrapper">
@@ -38,7 +42,9 @@ export default {
       rootData: genTestData(),
       newName: '',
       activeNode: null,
-      nameModalVisible: false
+      nameModalVisible: false,
+      // 是否级联关闭(关闭的时候同时关闭所有子节点，打开的时候只会逐级打开)
+      cascadeClose: false,
     }
   },
   methods: {
@@ -56,6 +62,13 @@ export default {
       updatePartTree(this.activeData.$treeNodeRefs.treeNodeRef)
       this.changeNameModal()
     },
+    trigger(treeNode) {
+      if (this.cascadeClose && !treeNode.isOpen) {
+        treeForEach(treeNode, 'children', e => {
+          e.isOpen = false
+        })
+      }
+    }
   }
 }
 let id = 0
@@ -89,9 +102,34 @@ function genTestName() {
   }
   return name.slice(0, nameLen)
 }
+
+/**
+ * 树的深度优先遍历
+ * @param node 树根或 node 数组
+ * @param {string} childrenKey 子节点数组字段名
+ * @param {Function} callback 对每个节点的处理回调
+ */
+export function treeForEach(node, childrenKey, callback) {
+  if (node) {
+    const iterator = (nodes, level) => {
+      nodes.forEach(node => {
+        callback(node, level)
+        const children = node[childrenKey]
+        if (children && children.length) {
+          iterator(children, level + 1)
+        }
+      })
+    }
+    const nodes = []
+    iterator(nodes.concat(node), 1)
+  }
+}
 </script>
 <style scoped lang="less">
-.area_wrapper {
+.actions_wrapper {
+  padding: 24px;
+}
+.tree_wrapper {
   min-height: 372px;
   box-sizing: border-box;
   padding: 60px;

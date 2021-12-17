@@ -24,7 +24,9 @@
       v-for="item in treeNodeData.children"
       :key="item.id"
       :treeNodeData="item"
-      :isRoot="false">
+      :isRoot="false"
+      v-on="$listeners"
+    >
       <template v-slot:default="slotProps">
         <slot v-bind:data="slotProps.data"></slot>
       </template>
@@ -84,6 +86,7 @@ export default {
   methods: {
     changeOpen () {
       this.treeNodeData.isOpen = !this.treeNodeData.isOpen
+      this.$emit('trigger', this.treeNodeData)
       updatePartTree(this.$refs.treeNodeRef)
     }
   }
